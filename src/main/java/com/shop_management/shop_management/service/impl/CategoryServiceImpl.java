@@ -43,17 +43,11 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public Category updateCategory(UUID categoryId, CategoryDto category) {
-        Optional<Category> categoryData = categoryRepo.findById(categoryId);
-
-        categoryData.orElseThrow(() -> new ResourceNotFoundException("Category Id " + categoryId + " not found"));
-
-        Category categoryGet = categoryData.get();
-        categoryGet.setStatus(category.getStatus());
-
-        return categoryRepo.save(categoryGet);
-
-
+    public Category updateCategory(UUID categoryId, CategoryDto categoryDto) {
+        Optional<Category> categoryOptional = categoryRepo.findById(categoryId);
+        Category category = categoryOptional.orElseThrow(() -> new ResourceNotFoundException("Category Id " + categoryId + " not found"));
+        category.setStatus(categoryDto.getStatus());
+        return categoryRepo.save(category);
     }
 
     @Override
