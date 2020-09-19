@@ -19,20 +19,20 @@ public class ItemController {
         this.itemService = itemService;
     }
 
-    @GetMapping("/getItems")
+    @GetMapping("/items")
     public ResponseEntity<RootResponseDto> getItems() {
 
         return ResponseEntity.ok(new RootResponseDto(true, "displaying all items", itemService.getItems()));
 
     }
 
-    @GetMapping("/getItem/{categoryId}")
+    @GetMapping("/items/{categoryId}")
     public ResponseEntity<RootResponseDto> getItem(@PathVariable UUID categoryId) {
 
         return ResponseEntity.ok(new RootResponseDto(true, "displaying items based on category Id", itemService.getItem(categoryId)));
     }
 
-    @PostMapping("/category/{categoryId}/items")
+    @PostMapping("/category/{categoryId}/item")
     public ResponseEntity<RootResponseDto> addItem(
             @PathVariable(value = "categoryId") UUID categoryId,
             @RequestBody ItemDto item) {
@@ -41,13 +41,13 @@ public class ItemController {
     }
 
 
-    @DeleteMapping("deleteItem/{id}")
+    @DeleteMapping("/item/{id}")
     public ResponseEntity<RootResponseDto> deleteItem(@PathVariable(value = "id") UUID id) {
         itemService.deleteItem(id);
         return ResponseEntity.ok(new RootResponseDto(true, "item has been deleted"));
     }
 
-    @PatchMapping("/updateItem/{id}")
+    @PatchMapping("/item/{id}")
     public ResponseEntity<RootResponseDto> updateItem(
             @PathVariable(value = "id") UUID id,
             @RequestBody ItemDto item) {
