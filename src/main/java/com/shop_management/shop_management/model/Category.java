@@ -17,15 +17,14 @@ public class Category {
             strategy = "org.hibernate.id.UUIDGenerator"
     )
     @Column(name = "id", updatable = false, nullable = false)
-
     private UUID categoryId;
 
+    @Column(name = "name")
     private String name;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "type")
     private Type type;
-
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status")

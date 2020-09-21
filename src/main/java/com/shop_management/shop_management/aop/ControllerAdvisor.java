@@ -1,6 +1,7 @@
 package com.shop_management.shop_management.aop;
 
 import com.shop_management.shop_management.dto.RootResponseDto;
+import com.shop_management.shop_management.exception.BadRequestException;
 import com.shop_management.shop_management.exception.ResourceNotFoundException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -22,5 +23,9 @@ public class ControllerAdvisor extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(new RootResponseDto(false, ex.getMessage()), new HttpHeaders(), HttpStatus.NOT_FOUND);
     }
 
-
+    @ExceptionHandler(BadRequestException.class)
+    public ResponseEntity<RootResponseDto> handleBadRequestException(
+            BadRequestException ex, WebRequest request){
+        return new ResponseEntity<>(new RootResponseDto(false, ex.getMessage()), new HttpHeaders(), HttpStatus.BAD_REQUEST);
+    }
 }

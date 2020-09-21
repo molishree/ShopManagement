@@ -18,18 +18,19 @@ public class Sales {
             strategy = "org.hibernate.id.UUIDGenerator"
     )
     @Column(name = "id", updatable = false, nullable = false)
-
     private UUID salesId;
-    private float amount;
-    private int quantity;
 
+    @Column(name = "amount")
+    private float amount;
+
+    @Column(name = "quantity")
+    private int quantity;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "category_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
     private Item item;
-
 
     public UUID getSalesId() {
 

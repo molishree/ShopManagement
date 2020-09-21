@@ -7,15 +7,10 @@ import java.util.List;
 import java.util.UUID;
 
 public interface ItemService {
-    Item getItemById(UUID id);
-
-    Item addItem(UUID categoryId, ItemDto item);
-
     List<Item> getItems();
-
-    List<Item> getItem(UUID cid);
-
-    Item updateItem(UUID id, ItemDto item);
-
+    List<Item> getItem(UUID categoryId);
+    Item getItemById(UUID id);
+    Item addItem(UUID categoryId, ItemDto itemDto);
     void deleteItem(UUID id);
+    Item updateItem(UUID id, ItemDto itemDto);
 }

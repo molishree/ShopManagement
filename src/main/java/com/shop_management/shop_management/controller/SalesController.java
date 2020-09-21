@@ -5,10 +5,7 @@ import com.shop_management.shop_management.dto.SalesDto;
 import com.shop_management.shop_management.service.ItemService;
 import com.shop_management.shop_management.service.SalesService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
 
@@ -23,10 +20,26 @@ public class SalesController {
         this.itemService = itemService;
     }
 
-    @PostMapping("/sales/{id}")
-    public ResponseEntity<RootResponseDto> addSales(@PathVariable(value = "id") UUID id, @RequestBody SalesDto sales) {
-        return ResponseEntity.ok(new RootResponseDto(true, "Sales added", salesService.addSales(id, sales)));
+    @GetMapping("/sales")
+    public ResponseEntity<RootResponseDto> getSales() {
+        return ResponseEntity.ok(new RootResponseDto(true, "displaying all sales", salesService.getSales()));
+    }
 
+    @GetMapping("/sale/{salesId}")
+    public ResponseEntity<RootResponseDto> getSale(@PathVariable UUID salesId) {
+
+        return ResponseEntity.ok(new RootResponseDto(true, "displaying sales based on item Id", salesService.getSale(salesId)));
+    }
+
+    @PostMapping("/item/{id}/sale")
+    public ResponseEntity<RootResponseDto> addSales(@PathVariable(value = "id") UUID id, @RequestBody SalesDto salesDto) {
+        return ResponseEntity.ok(new RootResponseDto(true, "Sales added", salesService.addSales(id, salesDto)));
+    }
+
+    @DeleteMapping("/sales/{salesId}")
+    public ResponseEntity<RootResponseDto> deleteSales(@PathVariable(value = "salesId") UUID salesId) {
+        salesService.deleteSales(salesId);
+        return ResponseEntity.ok(new RootResponseDto(true, "item has been deleted"));
     }
 
 }

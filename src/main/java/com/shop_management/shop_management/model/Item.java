@@ -18,10 +18,15 @@ public class Item {
             strategy = "org.hibernate.id.UUIDGenerator"
     )
     @Column(name = "id", updatable = false, nullable = false)
-
     private UUID id;
+
+    @Column(name = "name")
     private String name;
+
+    @Column(name = "amount")
     private float amount;
+
+    @Column(name = "quantity")
     private int quantity;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
